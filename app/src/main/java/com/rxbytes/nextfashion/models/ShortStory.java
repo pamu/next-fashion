@@ -10,6 +10,8 @@ public class ShortStory {
     private String image;
     private String author;
 
+    public ShortStory() {}
+
     public ShortStory(String title, String desc, String image, String author) {
         this.title = title;
         this.desc = desc;

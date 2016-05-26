@@ -3,10 +3,9 @@ package com.rxbytes.nextfashion.datasource;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import com.rxbytes.nextfashion.R;
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ import java.util.Scanner;
 public class DataSource {
 
     @Nullable
-    public static JSONObject getJson(final Context context) {
+    public static JSONArray getJson(final Context context) {
         InputStream is = context.getResources().openRawResource(R.raw.data);
         Scanner scan = new Scanner(is);
         String data = "";
@@ -26,7 +25,7 @@ public class DataSource {
         }
         scan.close();
         try {
-            JSONObject payload = new JSONObject(data);
+            JSONArray payload = new JSONArray(data);
             return payload;
         } catch (JSONException e) {
             e.printStackTrace();

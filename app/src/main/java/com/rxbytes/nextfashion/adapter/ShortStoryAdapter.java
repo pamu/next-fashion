@@ -2,11 +2,16 @@ package com.rxbytes.nextfashion.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.rxbytes.nextfashion.R;
 import com.rxbytes.nextfashion.models.ShortStory;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +60,31 @@ public class ShortStoryAdapter extends RecyclerView.Adapter<ShortStoryViewHolder
 
 class ShortStoryViewHolder extends RecyclerView.ViewHolder {
     private View mRootView;
+    private ImageView image;
+    private TextView title;
+    private TextView desc;
+    private Button followBtn;
 
     public ShortStoryViewHolder(View itemView) {
         super(itemView);
         this.mRootView = itemView;
+        image = (ImageView) mRootView.findViewById(R.id.image);
+        title = (TextView) mRootView.findViewById(R.id.title);
+        desc = (TextView) mRootView.findViewById(R.id.desc);
+        followBtn = (Button) mRootView.findViewById(R.id.btn);
     }
 
     public void bind(ShortStory shortStory) {
-
+        if (! TextUtils.isEmpty(shortStory.getImage())) {
+            String imageLink = shortStory.getImage();
+            Picasso.with(mRootView.getContext())
+                    .load(imageLink)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(image);
+        }
+        title.setText(shortStory.getTitle() + "");
+        desc.setText(shortStory.getDesc() + "");
+        followBtn.setText("Follow");
     }
 }
