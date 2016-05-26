@@ -2,8 +2,10 @@ package com.rxbytes.nextfashion.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.rxbytes.nextfashion.R;
 import com.rxbytes.nextfashion.models.ShortStory;
 
 import java.util.ArrayList;
@@ -34,17 +36,19 @@ public class ShortStoryAdapter extends RecyclerView.Adapter<ShortStoryViewHolder
 
     @Override
     public ShortStoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.short_story_layout_item, parent, false);
+        ShortStoryViewHolder shortStoryViewHolder = new ShortStoryViewHolder(rootView);
+        return shortStoryViewHolder;
     }
 
     @Override
     public void onBindViewHolder(ShortStoryViewHolder holder, int position) {
-
+        holder.bind(shortStoryList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return shortStoryList.size();
     }
 
 }
@@ -57,5 +61,7 @@ class ShortStoryViewHolder extends RecyclerView.ViewHolder {
         this.mRootView = itemView;
     }
 
+    public void bind(ShortStory shortStory) {
 
+    }
 }
