@@ -36,8 +36,8 @@ public class MainActivityFragment extends Fragment {
             super.handleMessage(msg);
             int what = msg.what;
             switch (what) {
-                case DATA_READY :
-                    List<ShortStory> list = (List<ShortStory>)msg.obj;
+                case DATA_READY:
+                    List<ShortStory> list = (List<ShortStory>) msg.obj;
                     mAdapter.addAll(list);
                     break;
                 default:
@@ -65,14 +65,30 @@ public class MainActivityFragment extends Fragment {
                     JSONArray data = DataSource.getJson(getContext());
                     List<ShortStory> shortStoryList = new ArrayList<>();
                     if (data != null) {
-                        for(int i = 0; i < data.length(); i ++) {
+                        for (int i = 0; i < data.length(); i++) {
                             try {
                                 JSONObject item = data.getJSONObject(i);
                                 ShortStory shortStory = new ShortStory();
-                                shortStory.setImage(item.getString("image"));
-                                shortStory.setDesc(item.getString("about"));
-                                shortStory.setAuthor(item.getString("username"));
-                                shortStory.setTitle(item.getString("handle"));
+                                try {
+                                    shortStory.setImage(item.getString("si"));
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                                try {
+                                    shortStory.setDesc(item.getString("description"));
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                                try {
+                                    shortStory.setAuthor(item.getString("username"));
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                                try {
+                                    shortStory.setTitle(item.getString("handle"));
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
                                 shortStoryList.add(shortStory);
                             } catch (JSONException e) {
                                 e.printStackTrace();

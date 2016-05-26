@@ -3,6 +3,7 @@ package com.rxbytes.nextfashion.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,10 +78,10 @@ class ShortStoryViewHolder extends RecyclerView.ViewHolder {
     public void bind(ShortStory shortStory) {
         if (! TextUtils.isEmpty(shortStory.getImage())) {
             String imageLink = shortStory.getImage();
+            Log.e(ShortStoryAdapter.class.getSimpleName(), "loading image link: " + imageLink);
             Picasso.with(mRootView.getContext())
                     .load(imageLink)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
+                    .fit()
                     .into(image);
         }
         title.setText(shortStory.getTitle() + "");
