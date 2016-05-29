@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.rxbytes.nextfashion.adapter.ShortStoryAdapter;
 import com.rxbytes.nextfashion.datasource.DataSource;
+import com.rxbytes.nextfashion.datasource.ResponseParser;
 import com.rxbytes.nextfashion.models.ShortStory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,44 +63,9 @@ public class MainActivityFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    JSONArray data = DataSource.getJson(getContext());
-                    List<ShortStory> shortStoryList = new ArrayList<>();
-                    if (data != null) {
-                        for (int i = 0; i < data.length(); i++) {
-                            try {
-                                JSONObject item = data.getJSONObject(i);
-                                ShortStory shortStory = new ShortStory();
-                                try {
-                                    shortStory.setImage(item.getString("si"));
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                                try {
-                                    shortStory.setDesc(item.getString("description"));
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                                try {
-                                    shortStory.setAuthor(item.getString("username"));
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                                try {
-                                    shortStory.setTitle(item.getString("handle"));
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                                shortStoryList.add(shortStory);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        mHandler.dispatchMessage(Message.obtain(mHandler, DATA_READY, shortStoryList));
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                List<ShortStory> shortStoryList = ResponseParser.getShortStories(getContext());
+                Collections.reverse(shortStoryList);
+                mHandler.dispatchMessage(Message.obtain(mHandler, DATA_READY, shortStoryList));
             }
         }).start();
 

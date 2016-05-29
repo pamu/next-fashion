@@ -84,8 +84,20 @@ class ShortStoryViewHolder extends RecyclerView.ViewHolder {
                     .fit()
                     .into(image);
         }
-        title.setText(shortStory.getTitle() + "");
-        desc.setText(shortStory.getDesc() + "");
+
+        String titleText = shortStory.getTitle() != null ? shortStory.getTitle() + "" : "";
+        title.setText(titleText);
+
+        String descText = shortStory.getDesc() != null ? shortStory.getDesc()  + "" : "";
+        desc.setText(descText);
+
         followBtn.setText("Follow");
+        followBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 }

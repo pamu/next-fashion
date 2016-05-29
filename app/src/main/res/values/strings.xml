@@ -2,4 +2,6 @@
     <string name="app_name">Next Fashion</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_full_story">FullStoryActivity</string>
+
+    <string name="random_text">lorem lepsum adadadada</string>
 </resources>

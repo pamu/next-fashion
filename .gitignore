@@ -27,3 +27,5 @@ proguard/
 .navigation/
 # Android Studio captures folder
 captures/
+libs/
+src/main/res/drawable/
