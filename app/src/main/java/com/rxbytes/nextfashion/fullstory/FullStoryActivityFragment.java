@@ -107,6 +107,7 @@ public class FullStoryActivityFragment extends Fragment {
                 });
             } catch (Exception ex) {
                 ex.printStackTrace();
+                getActivity().finish();
             }
         } else getActivity().finish();
 
