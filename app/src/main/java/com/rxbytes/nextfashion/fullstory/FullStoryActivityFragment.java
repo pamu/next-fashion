@@ -13,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.rxbytes.nextfashion.R;
 import com.rxbytes.nextfashion.adapter.ShortStoryAdapter;
+import com.rxbytes.nextfashion.adapter.ShortStoryViewHolder;
 import com.rxbytes.nextfashion.datasource.ResponseParser;
 import com.rxbytes.nextfashion.models.ShortStory;
 import com.rxbytes.nextfashion.state.State;
 import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
+
+import static com.rxbytes.nextfashion.adapter.ShortStoryViewHolder.DB_KEY;
+import static com.rxbytes.nextfashion.adapter.ShortStoryViewHolder.FOLLOW_KEY;
+import static com.rxbytes.nextfashion.adapter.ShortStoryViewHolder.UPDATE_VIEW_ACTION;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,7 +35,7 @@ public class FullStoryActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.fragment_full_story, container, false);
+        final View mRootView = inflater.inflate(R.layout.fragment_full_story, container, false);
 
         Intent intent = getActivity().getIntent();
         Bundle extras = intent.getExtras();
@@ -84,13 +89,20 @@ public class FullStoryActivityFragment extends Fragment {
                 followBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String str;
                         if (followBtn.getText().equals("follow")) {
                             State.getPrefs().setFollowingState(shortStory.getDb(), true);
                             followBtn.setText("following");
+                            str = "following";
                         } else {
                             State.getPrefs().setFollowingState(shortStory.getDb(), false);
                             followBtn.setText("follow");
+                            str = "follow";
                         }
+                        Intent intent = new Intent(UPDATE_VIEW_ACTION);
+                        intent.putExtra(FOLLOW_KEY, str);
+                        intent.putExtra(DB_KEY, shortStory.getDb());
+                        mRootView.getContext().sendBroadcast(intent);
                     }
                 });
             } catch (Exception ex) {
