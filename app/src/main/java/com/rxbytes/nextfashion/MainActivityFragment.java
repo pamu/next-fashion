@@ -1,10 +1,7 @@
 package com.rxbytes.nextfashion;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import android.os.*;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,23 +29,6 @@ public class MainActivityFragment extends Fragment {
     public MainActivityFragment() {
     }
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            int what = msg.what;
-            switch (what) {
-                case DATA_READY:
-                    List<ShortStory> list = (List<ShortStory>) msg.obj;
-                    mAdapter.addAll(list);
-                    break;
-                default:
-            }
-        }
-    };
-
-    public static final int DATA_READY = 1;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,14 +40,19 @@ public class MainActivityFragment extends Fragment {
         this.mAdapter = shortStoryAdapter;
         recyclerView.setAdapter(shortStoryAdapter);
 
-        new Thread(new Runnable() {
+        new AsyncTask<Void, Void, List<ShortStory>>() {
             @Override
-            public void run() {
+            protected List<ShortStory> doInBackground(Void... voids) {
                 List<ShortStory> shortStoryList = ResponseParser.getShortStories(getContext());
-                Collections.reverse(shortStoryList);
-                mHandler.dispatchMessage(Message.obtain(mHandler, DATA_READY, shortStoryList));
+                return shortStoryList;
             }
-        }).start();
+
+            @Override
+            protected void onPostExecute(List<ShortStory> shortStories) {
+                super.onPostExecute(shortStories);
+                mAdapter.addAll(shortStories);
+            }
+        }.execute();
 
 
         return rootView;

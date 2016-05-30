@@ -6,7 +6,7 @@
 
     <dimen name="card_margin">8dp</dimen>
 
-    <dimen name="title_font">21sp</dimen>
+    <dimen name="title_font">18sp</dimen>
 
     <dimen name="title_padding">4dp</dimen>
     <dimen name="desc_padding">8dp</dimen>

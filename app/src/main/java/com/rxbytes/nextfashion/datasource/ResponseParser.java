@@ -21,8 +21,8 @@ public class ResponseParser {
             for (int i = 0; i < data.length(); i++) {
                 try {
                     JSONObject item = data.getJSONObject(i);
-
                     ShortStory shortStory = new ShortStory();
+                    shortStory.setPayload(item.toString());
 
                     try {
                         shortStory.setImage(item.getString("si"));
@@ -49,10 +49,39 @@ public class ResponseParser {
                     }
 
                     try {
+                        shortStory.setDb(item.getString("db"));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        boolean isNormal = item.has("db");
+                        shortStory.setAuthorProfile(!isNormal);
+
+                        if (!isNormal) {
+
+                            try {
+                                shortStory.setTitle(item.getString("handle"));
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                            try {
+                                shortStory.setImage(item.getString("image"));
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
                         shortStoryList.add(shortStory);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

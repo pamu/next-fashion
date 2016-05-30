@@ -5,10 +5,13 @@ package com.rxbytes.nextfashion.models;
  */
 public class ShortStory {
 
+    private String db;
     private String title;
     private String desc;
     private String image;
     private String author;
+    private String payload;
+    private boolean authorProfile;
 
     public ShortStory() {}
 
@@ -49,5 +52,29 @@ public class ShortStory {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public boolean isAuthorProfile() {
+        return authorProfile;
+    }
+
+    public void setAuthorProfile(boolean authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+
+    public String getPayload() {
+        return payload;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
     }
 }

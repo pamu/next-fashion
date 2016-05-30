@@ -34,7 +34,7 @@
                           android:textSize="@dimen/title_font"
                           android:layout_gravity="center_vertical"
                           android:layout_weight="1"
-                          android:textStyle="bold"/>
+                          android:textColor="@color/black"/>
 
                 <Button android:id="@+id/btn"
                         android:layout_width="wrap_content"
