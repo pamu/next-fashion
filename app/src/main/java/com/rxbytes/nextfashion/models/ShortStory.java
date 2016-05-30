@@ -11,6 +11,8 @@ public class ShortStory {
     private String image;
     private String author;
     private String payload;
+    private int likesCount;
+    private int commentsCount;
     private boolean authorProfile;
 
     public ShortStory() {}
@@ -76,5 +78,21 @@ public class ShortStory {
 
     public void setDb(String db) {
         this.db = db;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
     }
 }

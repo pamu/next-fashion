@@ -25,6 +25,7 @@ import java.util.List;
 public class MainActivityFragment extends Fragment {
 
     private ShortStoryAdapter mAdapter;
+    private View mView;
 
     public MainActivityFragment() {
     }
@@ -32,6 +33,13 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (mView != null) {
+            if (mView.getParent() != null) {
+                ((ViewGroup) mView.getParent()).removeView(mView);
+            }
+            return mView;
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv);
@@ -54,7 +62,7 @@ public class MainActivityFragment extends Fragment {
             }
         }.execute();
 
-
+        mView = rootView;
         return rootView;
     }
 }

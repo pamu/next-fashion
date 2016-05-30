@@ -126,10 +126,16 @@ class ShortStoryViewHolder extends RecyclerView.ViewHolder {
         String titleText = shortStory.getTitle() != null ? shortStory.getTitle().trim() + "" : "";
         title.setVisibility(View.VISIBLE);
         title.setText(titleText);
+        if (TextUtils.isEmpty(titleText)) {
+            title.setVisibility(View.GONE);
+        }
 
         String descText = shortStory.getDesc() != null ? shortStory.getDesc().trim() + "" : "";
         desc.setVisibility(View.VISIBLE);
         desc.setText(descText);
+        if (TextUtils.isEmpty(descText)) {
+            desc.setVisibility(View.GONE);
+        }
 
         if (!shortStory.isAuthorProfile()) {
             followBtn.setTag(shortStory.getDb());
@@ -164,10 +170,12 @@ class ShortStoryViewHolder extends RecyclerView.ViewHolder {
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(mRootView.getContext(), "opening full story", Toast.LENGTH_SHORT).show();
                 final Context context = view.getContext();
                 Intent fullStoryIntent = new Intent(context, FullStoryActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("payload", shortStory.getPayload());
+                fullStoryIntent.putExtras(bundle);
                 context.startActivity(fullStoryIntent);
             }
         });
